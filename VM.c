@@ -25,8 +25,8 @@ int calculate(char arr[120][40], int size){
             stptr--;
             int b = stack[stptr -1];
             stptr--;
-            printf("%d + %d = %d", a, b, a+b);
-            stack[stptr] = a+b;
+            printf("%d + %d = %d", b, a, b+a);
+            stack[stptr] = b+a;
             stptr++;
 
 
@@ -36,8 +36,8 @@ int calculate(char arr[120][40], int size){
             stptr--;
             int b = stack[stptr -1];
             stptr--;
-            printf("%d - %d = %d", a, b, a-b);
-            stack[stptr] = a-b;
+            printf("%d - %d = %d", b, a, b-a);
+            stack[stptr] = b - a;
             stptr++;
         } else if (strncmp(arr[i] ,"mul", 1) == 0) {
             printf("mul \n");
@@ -45,8 +45,8 @@ int calculate(char arr[120][40], int size){
             stptr--;
             int b = stack[stptr -1];
             stptr--;
-            printf("%d * %d = %d", a, b, a*b);
-            stack[stptr] = a*b;
+            printf("%d * %d = %d", b, a, b*a);
+            stack[stptr] = b*a;
             stptr++;
         } else if (strncmp(arr[i] ,"div", 1) == 0) {
             printf("div \n");
@@ -54,8 +54,8 @@ int calculate(char arr[120][40], int size){
             stptr--;
             int b = stack[stptr -1];
             stptr--;
-            printf("%d / %d = %d", a, b, a/b);
-            stack[stptr] = a/b;
+            printf("%d / %d = %d", b, a, b/a);
+            stack[stptr] = b/a;
             stptr++;
         }
         //if not operator, remove chars from string, then append int to stack
