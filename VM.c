@@ -15,60 +15,59 @@ int calculate(char arr[120][40], int size){
     int stptr = 0;
     // loop array
     for( i = 0; i < size; i++) {
-        char r = arr[i];
-        printf(" est %s \n ", arr[i]);
+
 
         //if operands
         if (strncmp(arr[i] ,"add", 1) == 0) {
-            printf("add \n");
+
             int a = stack[stptr -1];
             stptr--;
             int b = stack[stptr -1];
             stptr--;
-            printf("%d + %d = %d", b, a, b+a);
+            printf("%d + %d = %d \n", b, a, b+a);
             stack[stptr] = b+a;
             stptr++;
 
 
         } else if (strncmp(arr[i] ,"sub", 1) == 0) {
-            printf("sub \n");
+
             int a = stack[stptr -1];
             stptr--;
             int b = stack[stptr -1];
             stptr--;
-            printf("%d - %d = %d", b, a, b-a);
+            printf("%d - %d = %d \n", b, a, b-a);
             stack[stptr] = b - a;
             stptr++;
         } else if (strncmp(arr[i] ,"mul", 1) == 0) {
-            printf("mul \n");
+
             int a = stack[stptr -1];
             stptr--;
             int b = stack[stptr -1];
             stptr--;
-            printf("%d * %d = %d", b, a, b*a);
+            printf("%d * %d = %d \n", b, a, b*a);
             stack[stptr] = b*a;
             stptr++;
         } else if (strncmp(arr[i] ,"div", 1) == 0) {
-            printf("div \n");
+
             int a = stack[stptr -1];
             stptr--;
             int b = stack[stptr -1];
             stptr--;
-            printf("%d / %d = %d", b, a, b/a);
+            printf("%d / %d = %d \n", b, a, b/a);
             stack[stptr] = b/a;
             stptr++;
         }
         //if not operator, remove chars from string, then append int to stack
         else{
             if (strncmp(arr[i] ,"0", 1) != 0){
-                printf("hi %s \n", arr[i]);
+
                 char  *str = arr[i], *ptr = str ;
                 while (*ptr) {
                     if (isdigit(*ptr)) {
                         long val = strtol(ptr, &ptr, 10);
-                        printf("%ld\n", val);
+
                         int g = (int)val;
-                        printf("%d \n %c",g , *ptr);
+
 
                         stack[stptr] = g;
                         stptr++;
