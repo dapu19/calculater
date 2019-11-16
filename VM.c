@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-int calculate(char arr[120][40], int size){
+int VM(char arr[120][40], int size){
     printf("calculate \n");
     size_t i = 0;
     int stack[32];
