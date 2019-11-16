@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include "VM.h"
-void calculate(char arr[120]);
+int calculate(char arr[120], int size);
 
 
 int main() {
     printf("Hello, World!\n");
-    char sum[6][1] = {{"+"},{"-"}, {"*"}, {"/"}, {"5"}, {"7"}};
+    char sum[][40] = { "loadint 2", "loadint 2","loadint 8", "mul", "add"};
 
-    calculate(sum, 6);
+    int result = calculate(sum, 5);
+    printf("result = %d", result);
     return 0;
 }
