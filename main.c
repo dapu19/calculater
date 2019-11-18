@@ -1,16 +1,23 @@
 #include <stdio.h>
 #include "VM.h"
+#include "CG.h"
+#include "Infix2Postfix.h"
+
+void CG(char arr[120][40], int size);
 int VM(char arr[120], int size);
+void Infix2Postfix(char in[10][240], char post[10][240]);
+
 
 
 int main() {
-    printf("Hello, World!\n");
-    char sum[][40] = { "loadint 545", "loadint 7","add","loadint 6","loadint 2", "sub", "mul"};
+    //printf("Hello, World!\n");
+    char Mattsum[][40] = { "5", "3457","+","6","2", "-", "*"};
 
-    int result = VM(sum, 7);
-    printf("result = %d", result);
+    CG(Mattsum, 7);
 
-
+    char MatthewsAwesomeInfixArray[][1] = {"1", "+", "2"};
+    char MatthewsAwesomePostfixArray[100][240];
+    Infix2Postfix(MatthewsAwesomeInfixArray, MatthewsAwesomePostfixArray);
 
     return 0;
 }
