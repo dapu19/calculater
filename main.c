@@ -1,23 +1,14 @@
 #include <stdio.h>
 #include "VM.h"
-#include "CG.h"
-
-void CG(char arr[120][40], int size);
 int VM(char arr[120], int size);
-
 
 
 int main() {
     printf("Hello, World!\n");
-    char Mattsum[][40] = { "5", "3457","+","6","2", "-", "*"};
+    char sum[][40] = { "loadint 545", "loadint 7","add","loadint 6","loadint 2", "sub", "mul"};
 
-
-
-
-
-    CG(Mattsum, 7);
-
-
+    int result = VM(sum, 7);
+    printf("result = %d", result);
 
 
 
