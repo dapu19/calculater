@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "VM.h"
 #include "CG.h"
+#include "Infix2Postfix.h"
 
 void CG(char arr[120][40], int size);
 int VM(char arr[120], int size);
