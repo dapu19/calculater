@@ -79,18 +79,6 @@ int VM(char arr[120][40], int size){
                 }
 
 
-
-                /*char *ptr;
-                long ret;
-                ret = strtol(arr[i], &ptr, 10);
-
-                printf("%ld" , ret);
-                int g = (int)ret;
-                printf("%d \n %c",g , *ptr);
-
-                stack[stptr] = g;
-                stptr++;
-                */
             }
         }
 
