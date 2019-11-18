@@ -14,7 +14,7 @@ int VM(char arr[120][40], int size){
     int stack[32];
     int stptr = 0;
     // loop array
-    for( i = 0; i < size; i++) {
+    for(int i = 0; i < size; i++) {
 
 
         //if operands
@@ -64,11 +64,13 @@ int VM(char arr[120][40], int size){
                 char  *str = arr[i], *ptr = str ;
                 while (*ptr) {
                     if (isdigit(*ptr)) {
+                        // assigns the number part to the long val
                         long val = strtol(ptr, &ptr, 10);
 
+                        // converts the long to an int
                         int g = (int)val;
 
-
+                        // pushes g to stack
                         stack[stptr] = g;
                         stptr++;
                     } else {
@@ -94,7 +96,7 @@ int VM(char arr[120][40], int size){
 
     }
 
-    printf(" Stack \n %d \n", stack[0]);
+
     return stack[0];
 
 }
