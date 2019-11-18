@@ -10,6 +10,39 @@
 char stack[240];
 int top = -1;
 
+void push(char item) {
+    stack[++top] = item;
+}
+
+char pop() {
+    return(stack[top--]);
+}
+
+int precedence(char item) {
+    if (item == '*' || item == '/')
+        return 2;
+    else if (item == '+' || item == '-')
+        return 1;
+    else
+        return 0;
+}
+
+int isOperator(char item) {
+    if (item == '+' || item == '-' || item == '*' || item == '/')
+        return 1;
+    else
+        return 0;
+}
+
+int isNumber(char * item) {
+    //Function takes in a string and checks if that string is a number
+    if (item == NULL || *item == '\0')
+        return 0;
+    char * num;
+    strtod(item, &num);
+    return *num == '\0';
+}
+
 int Infix2Postfix(char infixArray[], char postfixArray[240]) {
     int i = 0;
     int j = 0;
@@ -57,37 +90,5 @@ int Infix2Postfix(char infixArray[], char postfixArray[240]) {
         exit(1);
     }
     postfixArray[j] = '\0';
-}
-
-void push(char item) {
-    stack[++top] = item;
-}
-
-char pop() {
-    return(stack[top--]);
-}
-
-int precedence(char item) {
-    if (item == '*' || item == '/')
-        return 2;
-    else if (item == '+' || item == '-')
-        return 1;
-    else
-        return 0;
-}
-
-int isOperator(char item) {
-    if (item == '+' || item == '-' || item == '*' || item == '/')
-        return 1;
-    else
-        return 0;
-}
-
-int isNumber(char * item) {
-    //Function takes in a string and checks if that string is a number
-    if (item == NULL || *item == '\0')
-        return 0;
-    char * num;
-    strtod(item, &num);
-    return *num == '\0';
+    return postfixArray[0];
 }
