@@ -6,19 +6,21 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<ctype.h>
 
-char stack[240];
-int top = -1;
 
-void push(char item) {
-    stack[++top] = item;
+void push(char item, char *pointerToMatthewsAwesomeStack, int top) {
+    //printf("\nPushing");
+    pointerToMatthewsAwesomeStack[++top] = item;
 }
 
-char pop() {
-    return(stack[top--]);
+char pop(char *pointerToMatthewsAwesomeStack, int top) {
+    //printf("\nPopping");
+    return(pointerToMatthewsAwesomeStack[top--]);
 }
 
 int precedence(char item) {
+    //printf("\nPrecedence");
     if (item == '*' || item == '/')
         return 2;
     else if (item == '+' || item == '-')
@@ -28,13 +30,15 @@ int precedence(char item) {
 }
 
 int isOperator(char item) {
+    //printf("\nOperator Check");
     if (item == '+' || item == '-' || item == '*' || item == '/')
         return 1;
     else
         return 0;
 }
 
-int isNumber(char * item) {
+/*int isNumber(char * item) {
+    printf("\nNumber Check");
     //Function takes in a string and checks if that string is a number
     if (item == NULL || *item == '\0')
         return 0;
@@ -43,52 +47,65 @@ int isNumber(char * item) {
     return *num == '\0';
 }
 
-int Infix2Postfix(char infixArray[], char postfixArray[240]) {
+void printArray(char *pointerToArray[]) {
+    int i;
+    for(i = 0; i <= 10; i++) {
+        printf("%s", pointerToArray[i]);
+    }
+}*/
+
+int Infix2Postfix(char infixArray[][3], char postfixArray[]) {
+    //printf("\nMain i2p function");
+    //printf("\nInputted array: ");
+    //printArray(infixArray);
+    char MatthewsAwesomeStack[32];
+    int top = -1;
     int i = 0;
     int j = 0;
     char item;
     char temp;
 
-    push('(');
-    strcat(infixArray, ")");
+    push('(', MatthewsAwesomeStack, top);
+    strcat((char *) infixArray, ")");
 
-    item = infixArray[i];
+    item = *infixArray[i];
 
     while(item != '\0') {
         if (item == '(') {
-            push(item);
-        }else if (isNumber(item)) {
+            push(item, MatthewsAwesomeStack, top);
+        }else if (isdigit(item)) {
             postfixArray[j] = item;
             j++;
         }else if(isOperator(item)) {
-            temp = pop();
+            temp = pop(MatthewsAwesomeStack, top);
             while(isOperator(temp) && precedence(temp) >= precedence(item)) {
                 postfixArray[j] = temp;
                 j++;
-                temp = pop();
+                temp = pop(MatthewsAwesomeStack, top);
             }
-            push(temp);
-            push(item);
+            push(temp, MatthewsAwesomeStack, top);
+            push(item, MatthewsAwesomeStack, top);
         }else if(item == ')') {
-            temp = pop();
+            temp = pop(MatthewsAwesomeStack, top);
             while(temp != '(') {
                 postfixArray[j] = temp;
                 j++;
-                temp = pop();
+                temp = pop(MatthewsAwesomeStack, top);
             }
         }else {
-            printf("\nInvalid infix expression.\n");
-            getchar();
+            printf("\nInvalid infix expression no.1\n");
             exit(1);
         }
         i++;
-        item = infixArray[i];
+        item = *infixArray[i];
     }
     if(top > 0) {
-        printf("\nInvalid infix expression.\n");
-        getchar();
+        printf("\nInvalid infix expression no.2\n");
         exit(1);
     }
+    //printf("\nHere?");
     postfixArray[j] = '\0';
-    return postfixArray[0];
+    //printf("\nOutputted array: ");
+    //printArray(postfixArray);
+    return 0;
 }
