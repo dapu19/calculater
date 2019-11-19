@@ -8,8 +8,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <ctype.h>
-
 
 
 void Tok(){
@@ -19,56 +17,65 @@ void Tok(){
 
     fp = fopen("C:\\Users\\david\\CLionProjects\\calculater\\file.txt", "r");
 
-    char ch;
-    char sum[240];
-    int count = 0;
-    bool number = false;
-    char numberHolder[120] = "";
+    char ch ;
+    char sum[100][240];
     int i = 0;
+    bool number = false;
+
     if ( fp == NULL )
     {
         printf( "Could not open file \n" );
     }
     else{
         printf("found\n");
+        char * strs = "";
+        char * tempnum = "";
 
         while ((ch = fgetc(fp)) != EOF)
         {
 
+            char str = ch;
+
+
+
             if (strncmp(&ch,"+", 1) == 0  || strncmp(&ch,"-", 1) == 0 || strncmp(&ch,"*", 1) == 0 ||
             strncmp(&ch,"/", 1) == 0 || strncmp(&ch,"(", 1) == 0 || strncmp(&ch,")", 1) == 0){
-                if (number){
-                    printf("adding number %s", &numberHolder);
-                    sum[count] = numberHolder;
-                    count++;
-                }
                 printf("\n operator");
-                sum[count] = ch;
-                count++;
-            }else{
-                if (!isdigit(ch)){
-                    printf("invalid input");
-                    continue;
+                if (number){
+                    number = false;
 
-                }else
-                {
-                    printf("number");
-                    if (number){
-                        char src[50];
-                        char dest[50];
-
-                        strcpy(dest, numberHolder);
-                        printf(dest);
-                        strcat( dest, &ch);
-                        printf("cat\n");
-                        printf("%s", numberHolder);
-                    }
-                    number = true;
-                    numberHolder[0] = ch;
                 }
-                printf("\n %c \n", ch);
-                //printf("%c", numberHolder);
+            }else{
+                if (number) {
+                    size_t len = strlen(strs);
+                    char *str2 = malloc(len + 1 + 1);
+                    strcpy(str2, strs);
+                    str2[len] = str;
+                    str2[len + 1] = '\0';
+                    //printf("\n %c", str);
+
+                    //printf("\n %s", str2);
+                    strcat(tempnum, str2);
+                    free(str2);
+                    printf(tempnum);
+                }else{
+                    number = true;
+                    size_t len = strlen(strs);
+                    char *str2 = malloc(len + 1 + 1);
+                    strcpy(str2, strs);
+                    str2[len] = str;
+                    str2[len + 1] = '\0';
+
+                    strcat(tempnum, str2);
+
+                    free(str2);
+                    printf(tempnum);
+
+                }
             }
+
+
+
 
 
         }
