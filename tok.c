@@ -44,7 +44,6 @@ char * Tok(){
             char * ops = "";
 
 
-
             // if operator
             if (strncmp(&ch,"+", 1) == 0  || strncmp(&ch,"-", 1) == 0 || strncmp(&ch,"*", 1) == 0 ||
             strncmp(&ch,"/", 1) == 0 || strncmp(&ch,"(", 1) == 0 || strncmp(&ch,")", 1) == 0 ||
