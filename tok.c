@@ -8,6 +8,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 
 void Tok(){
@@ -81,36 +82,56 @@ void Tok(){
                 free(str2);
                 i++;
             }else{
-                if (!number) {
-                    // first number
-                    number = true;
+                if (isdigit(str)) {
+                    if (!number) {
+                        // first number
+                        number = true;
+                    }
+
+
+                    size_t len = strlen(strs);
+                    char *str2 = malloc(len + 1 + 1);
+                    strcpy(str2, strs);
+                    str2[len] = str;
+                    str2[len + 1] = '\0';
+
+                    // concatenates number being looked at to tempnum var to be later added to the sum array
+                    strcat(tempnum, str2);
+
+                    free(str2);
+
                 }
 
-
-
-                size_t len = strlen(strs);
-                char *str2 = malloc(len + 1 + 1);
-                strcpy(str2, strs);
-                str2[len] = str;
-                str2[len + 1] = '\0';
-
-                // concatenates number being looked at to tempnum var to be later added to the sum array
-                strcat(tempnum, str2);
-
-                free(str2);
-
-
-
             }
+        }
+        if (number){
+            
+
+            printf("\n %s \n", tempnum);
+            // add to position i in sum
+            strcpy(sum[i], tempnum);
+            i++;
+
+            // clear tempnum for next number
+            memset(tempnum, 0, sizeof(tempnum));
+
         }
 
         printf("Closing the file \n");
 
         fclose(fp);
 
-        for(int j = 0; j < i; j++){
+
+        char * mattsoutString = "";
+        for(int j = 0; j < i ; j++){
             printf("%s \n ", sum[j]);
+
+            char * toadd = strcat(sum[j], " ");
+            //printf("\n%ssh\n", toadd);
+            strcat(mattsoutString, toadd);
+
         }
+        printf("%s \n", mattsoutString);
 
         // call I2P here
     }
