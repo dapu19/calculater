@@ -11,9 +11,8 @@
 #include <ctype.h>
 
 
-void Tok(){
+char * Tok(){
     FILE *fp;
-    char data[500];
 
 
     // open specified file, weirdly must be absolute path
@@ -105,7 +104,7 @@ void Tok(){
             }
         }
         if (number){
-            
+
 
             printf("\n %s \n", tempnum);
             // add to position i in sum
@@ -132,6 +131,7 @@ void Tok(){
 
         }
         printf("%s \n", mattsoutString);
+        return mattsoutString;
 
         // call I2P here
     }
