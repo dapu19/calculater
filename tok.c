@@ -45,7 +45,8 @@ void Tok(){
 
             // if operator
             if (strncmp(&ch,"+", 1) == 0  || strncmp(&ch,"-", 1) == 0 || strncmp(&ch,"*", 1) == 0 ||
-            strncmp(&ch,"/", 1) == 0 || strncmp(&ch,"(", 1) == 0 || strncmp(&ch,")", 1) == 0){
+            strncmp(&ch,"/", 1) == 0 || strncmp(&ch,"(", 1) == 0 || strncmp(&ch,")", 1) == 0 ||
+            strncmp(&ch,"^", 1) == 0 || strncmp(&ch,"%", 1) == 0){
 
 
                 // if no number to be added, add current number to array before adding operator

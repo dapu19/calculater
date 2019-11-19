@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <math.h>
 
 int VM(char arr[120][40], int size){
     printf("calculate \n");
@@ -58,6 +59,29 @@ int VM(char arr[120][40], int size){
             stack[stptr] = b/a;
             stptr++;
         }
+        else if (strncmp(arr[i] ,"power", 1) == 0) {
+
+            int a = stack[stptr - 1];
+            stptr--;
+            int b = stack[stptr - 1];
+            stptr--;
+            int ser = pow(b, a);
+            printf("%d / %d = %d \n", b, a, ser);
+            stack[stptr] = b / a;
+            stptr++;
+
+        }
+        else if (strncmp(arr[i] ,"mod", 1) == 0) {
+
+                int a = stack[stptr -1];
+                stptr--;
+                int b = stack[stptr -1];
+                stptr--;
+                printf("%d / %d = %d \n", b, a,b%a);
+                stack[stptr] = b/a;
+                stptr++;
+            }
+
         //if not operator, remove chars from string, then append int to stack
         else{
             if (strncmp(arr[i] ,"0", 1) != 0){
