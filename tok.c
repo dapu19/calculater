@@ -18,7 +18,7 @@ char * Tok(){
 
 
     // open specified file, weirdly must be absolute path
-    fp = fopen("C:\\Users\\matti\\CLionProjects\\calculater\\file.txt", "r");
+    fp = fopen("..\\file.txt", "r");
 
     char ch ;
     char sum[200][4];

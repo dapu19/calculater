@@ -12,7 +12,11 @@ char * Tok();
 int main() {
     //printf("Hello, World!\n");
     char * result = Tok();
-    printf("Tokiniser result: %s\n", result);
+
+
+
+
+
     char Mattsum[][40] = { "5", "3457","+","6","2", "-", "*"};
 
     CG(Mattsum, 7);
