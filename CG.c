@@ -26,6 +26,13 @@ void CG(char arr[120][40], int size){
         else if (strncmp(arr[i] ,"-", 1) == 0){
 
             strcpy(arr[i], "sub");
+        }else if (strncmp(arr[i] ,"^", 1) == 0){
+
+            strcpy(arr[i], "power");
+        }
+        else if (strncmp(arr[i] ,"%", 1) == 0){
+
+            strcpy(arr[i], "mod");
         }
         else if (strncmp(arr[i] ,"*", 1) == 0){
 

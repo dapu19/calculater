@@ -3,4 +3,4 @@ project(calculater C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(calculater main.c VM.c VM.h CG.c CG.h Infix2Postfix.c Infix2Postfix.h)
+add_executable(calculater main.c VM.c VM.h CG.c CG.h Infix2Postfix.c Infix2Postfix.h tok.c tok.h)
