@@ -3,6 +3,11 @@
 #include<ctype.h>
 #include <string.h>
 
+#include "CG.h"
+#include "Infix2Postfix.h"
+
+void CG(char arr[120][40], int size);
+
 #define size 10
 
 struct stack {
@@ -83,7 +88,7 @@ void printResult(char array[]) {
     }
 }
 
-void toPostfix(char* expression) {
+void toPostfix(char* expression, int inSize) {
     char result[100];
     int idx = 0;
     for(int i = 0; expression[i] != '\0'; i ++) {
@@ -120,11 +125,13 @@ void toPostfix(char* expression) {
             }
         } else if(c == '(') {
             stack_push(c);
+            inSize--;
             if(idx != 0)
                 if(result[idx - 1] != '#') {
                     result[idx++] = '#';
                 }
         } else if(c == ')') {
+            inSize--;
             if(result[idx - 1] != '#') {
                 result[idx++] = '#';
             }
@@ -142,12 +149,13 @@ void toPostfix(char* expression) {
     }
     result[idx] = '\0';
     printResult(result);
+
     //printf("%s", result);
 
 
     int init_size = strlen(result);
     char delim[] = "#";
-    char outsrting[200][8];
+    char outsrting[200][40];
     int z = 0;
 
     char *ptr = strtok(result, delim);
@@ -163,26 +171,13 @@ void toPostfix(char* expression) {
         printf("%s \n ", outsrting[j]);
 
     }
+
+    CG(outsrting, inSize);
 }
 
-int InfixToPostfix(char* expression) {
-    toPostfix(expression);
+int InfixToPostfix(char* expression,int inSize) {
+
+    toPostfix(expression, inSize);
+
     return 0;
 }
-/*
-int main() {
-    printf("Insert expression: ");
-    char* expression;
-    char c;
-    int idx = 0;
-    do {
-        c = getchar();
-        if(c == '\n' || c == EOF)
-            c = '\0';
-        expression[idx++] = c;
-    }
-    while(c != '\0');
-    toPostfix(expression);
-    return 0;
-}
-*/

@@ -19,7 +19,7 @@ int main() {
 
     char Mattsum[][40] = { "5", "3457","+","6","2", "-", "*"};
 
-    CG(Mattsum, 7);
+    //CG(Mattsum, 7);
 
     return 0;
 }

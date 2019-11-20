@@ -11,7 +11,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-int InfixToPostfix(char* array[100]);
+int InfixToPostfix(char* array, int inSize);
 
 char * Tok(){
     FILE *fp;
@@ -134,7 +134,7 @@ char * Tok(){
         printf("%s \n", mattsoutString);
         //return mattsoutString;
 
-        InfixToPostfix(mattsoutString);
+        InfixToPostfix(mattsoutString, i);
         // call I2P here
     }
 
