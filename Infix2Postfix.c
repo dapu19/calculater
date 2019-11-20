@@ -90,10 +90,11 @@ void toPostfix(char* expression) {
         if(isOperand(c)) {
             if(result[idx] == '#')
                 idx++;
+            if(isOperator(result[idx - 1]))
+                result[idx++] = '#';
             result[idx++] = c;
         } else if(isOperator(c)) {
-            if(result[--idx] != '#') {
-                idx++;
+            if(result[idx - 1] != '#') {
                 result[idx++] = '#';
             }
             char topChar;
@@ -112,19 +113,18 @@ void toPostfix(char* expression) {
                     } else {
                         char cpop = stack_pop();
                         result[idx++] = cpop;
+                        result[idx++] = '#';
                     }
                 }
             }
         } else if(c == '(') {
             stack_push(c);
             if(idx != 0)
-                if(result[--idx] != '#') {
-                    idx++;
+                if(result[idx - 1] != '#') {
                     result[idx++] = '#';
                 }
         } else if(c == ')') {
-            if(result[--idx] != '#') {
-                idx++;
+            if(result[idx - 1] != '#') {
                 result[idx++] = '#';
             }
             char cpop = stack_pop();
@@ -164,4 +164,4 @@ int main() {
     toPostfix(expression);
     return 0;
 }
- */
+*/
