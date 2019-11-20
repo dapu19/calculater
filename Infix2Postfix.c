@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<ctype.h>
+#include <string.h>
 
 #define size 10
 
@@ -142,6 +143,26 @@ void toPostfix(char* expression) {
     result[idx] = '\0';
     printResult(result);
     //printf("%s", result);
+
+
+    int init_size = strlen(result);
+    char delim[] = "#";
+    char outsrting[200][8];
+    int z = 0;
+
+    char *ptr = strtok(result, delim);
+
+    while(ptr != NULL)
+    {
+        printf("'%s'\n", ptr);
+        strcpy(outsrting[z], ptr);
+        ptr = strtok(NULL, delim);
+        z++;
+    }
+    for(int j = 0; j < z ; j++){
+        printf("%s \n ", outsrting[j]);
+
+    }
 }
 
 int InfixToPostfix(char* expression) {
