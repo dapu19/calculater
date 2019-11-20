@@ -1,111 +1,167 @@
-//
-// Created by mattie on 18/11/2019.
-//
-
-#include "Infix2Postfix.h"
 #include<stdio.h>
 #include<stdlib.h>
-#include<string.h>
 #include<ctype.h>
 
+#define size 10
 
-void push(char item, char *pointerToMatthewsAwesomeStack, int top) {
-    //printf("\nPushing");
-    pointerToMatthewsAwesomeStack[++top] = item;
-}
+struct stack {
+    int count;
+    char stack[size];
+} s;
 
-char pop(char *pointerToMatthewsAwesomeStack, int top) {
-    //printf("\nPopping");
-    return(pointerToMatthewsAwesomeStack[top--]);
-}
-
-int precedence(char item) {
-    //printf("\nPrecedence");
-    if (item == '*' || item == '/')
-        return 2;
-    else if (item == '+' || item == '-')
-        return 1;
-    else
-        return 0;
-}
-
-int isOperator(char item) {
-    //printf("\nOperator Check");
-    if (item == '+' || item == '-' || item == '*' || item == '/')
-        return 1;
-    else
-        return 0;
-}
-
-/*int isNumber(char * item) {
-    printf("\nNumber Check");
-    //Function takes in a string and checks if that string is a number
-    if (item == NULL || *item == '\0')
-        return 0;
-    char * num;
-    strtod(item, &num);
-    return *num == '\0';
-}
-
-void printArray(char *pointerToArray[]) {
-    int i;
-    for(i = 0; i <= 10; i++) {
-        printf("%s", pointerToArray[i]);
+void stack_push(char c) {
+    if(s.count < size) {
+        s.stack[s.count] = c;
+        s.count += 1;
     }
-}*/
+}
 
-int Infix2Postfix(char infixArray[][3], char postfixArray[]) {
-    //printf("\nMain i2p function");
-    //printf("\nInputted array: ");
-    //printArray(infixArray);
-    char MatthewsAwesomeStack[32];
-    int top = -1;
-    int i = 0;
-    int j = 0;
+char stack_pop() {
     char item;
-    char temp;
+    if(s.count > 0) {
+        s.count -= 1;
+        item = s.stack[s.count];
+    }
+    return item;
+}
 
-    push('(', MatthewsAwesomeStack, top);
-    strcat((char *) infixArray, ")");
+int stack_isEmpty() {
+    return s.count == 0;
+}
 
-    item = *infixArray[i];
+char stack_topChar() {
+    return s.stack[s.count - 1];
+}
 
-    while(item != '\0') {
-        if (item == '(') {
-            push(item, MatthewsAwesomeStack, top);
-        }else if (isdigit(item)) {
-            postfixArray[j] = item;
-            j++;
-        }else if(isOperator(item)) {
-            temp = pop(MatthewsAwesomeStack, top);
-            while(isOperator(temp) && precedence(temp) >= precedence(item)) {
-                postfixArray[j] = temp;
-                j++;
-                temp = pop(MatthewsAwesomeStack, top);
-            }
-            push(temp, MatthewsAwesomeStack, top);
-            push(item, MatthewsAwesomeStack, top);
-        }else if(item == ')') {
-            temp = pop(MatthewsAwesomeStack, top);
-            while(temp != '(') {
-                postfixArray[j] = temp;
-                j++;
-                temp = pop(MatthewsAwesomeStack, top);
-            }
-        }else {
-            printf("\nInvalid infix expression no.1\n");
-            exit(1);
+int isOperand(char c) {
+    return isdigit(c);
+}
+
+char* operators = "+-*/^\0";
+
+int isOperator(char c) {
+    int result = 0;
+    for(int i = 0; operators[i] != '\0'; i ++) {
+        if(operators[i] == c) {
+            result = 1;
+            break;
         }
-        i++;
-        item = *infixArray[i];
     }
-    if(top > 0) {
-        printf("\nInvalid infix expression no.2\n");
-        exit(1);
+    return result;
+}
+
+int getPrecedence(char c) {
+    int result = 0;
+    for(int i = 0; operators[i] != '\0'; i ++) {
+        result ++;
+        if(operators[i] == c) {
+            if(c == '-' || c == '/')
+                result --;
+            break;
+        }
     }
-    //printf("\nHere?");
-    postfixArray[j] = '\0';
-    //printf("\nOutputted array: ");
-    //printArray(postfixArray);
+    return result;
+}
+
+int getPrecedenceV2(char c) {
+    int result = 0;
+    switch(c) {
+        case '^': result ++;
+        case '/':
+        case '*': result ++;
+        case '-':
+        case '+': result ++;
+    }
+    return result;
+}
+
+void printResult(char array[]) {
+    for(int i = 0; array[i]; i++) {
+        if(array[i] != '\0')
+            printf("%c", array[i]);
+    }
+}
+
+void toPostfix(char* expression) {
+    char result[100];
+    int idx = 0;
+    for(int i = 0; expression[i] != '\0'; i ++) {
+        char c = expression[i];
+        if(isOperand(c)) {
+            if(result[idx] == '#')
+                idx++;
+            result[idx++] = c;
+        } else if(isOperator(c)) {
+            if(result[--idx] != '#') {
+                idx++;
+                result[idx++] = '#';
+            }
+            char topChar;
+            while(1) {
+                topChar = stack_topChar();
+                if(stack_isEmpty() || topChar == '(') {
+                    stack_push(c);
+                    break;
+                } else {
+                    int precedenceC = getPrecedence(c);
+                    int precedenceTC = getPrecedence(topChar);
+
+                    if(precedenceC > precedenceTC) {
+                        stack_push(c);
+                        break;
+                    } else {
+                        char cpop = stack_pop();
+                        result[idx++] = cpop;
+                    }
+                }
+            }
+        } else if(c == '(') {
+            stack_push(c);
+            if(idx != 0)
+                if(result[--idx] != '#') {
+                    idx++;
+                    result[idx++] = '#';
+                }
+        } else if(c == ')') {
+            if(result[--idx] != '#') {
+                idx++;
+                result[idx++] = '#';
+            }
+            char cpop = stack_pop();
+            while(cpop != '(') {
+                result[idx++] = cpop;
+                cpop = stack_pop();
+            }
+        }
+    }
+    while(!stack_isEmpty()) {
+        result[idx++] = '#';
+        char c = stack_pop();
+        result[idx++] = c;
+    }
+    result[idx] = '\0';
+    printResult(result);
+    //printf("%s", result);
+}
+
+int InfixToPostfix(char* expression) {
+    toPostfix(expression);
     return 0;
 }
+/*
+int main() {
+    printf("Insert expression: ");
+    char* expression;
+    char c;
+    int idx = 0;
+    do {
+        c = getchar();
+        if(c == '\n' || c == EOF)
+            c = '\0';
+        expression[idx++] = c;
+    }
+    while(c != '\0');
+    toPostfix(expression);
+    return 0;
+}
+ */

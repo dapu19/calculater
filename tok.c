@@ -2,6 +2,7 @@
 // Created by david on 18/11/2019.
 //
 #include "tok.h"
+#include "Infix2Postfix.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -10,13 +11,14 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+int InfixToPostfix(char* array[100]);
 
 char * Tok(){
     FILE *fp;
 
 
     // open specified file, weirdly must be absolute path
-    fp = fopen("C:\\Users\\david\\CLionProjects\\calculater\\file.txt", "r");
+    fp = fopen("..\\file.txt", "r");
 
     char ch ;
     char sum[200][4];
@@ -40,7 +42,6 @@ char * Tok(){
 
             char str = ch;
             char * ops = "";
-
 
 
             // if operator
@@ -131,8 +132,9 @@ char * Tok(){
 
         }
         printf("%s \n", mattsoutString);
-        return mattsoutString;
+        //return mattsoutString;
 
+        InfixToPostfix(mattsoutString);
         // call I2P here
     }
 
