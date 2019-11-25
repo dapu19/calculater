@@ -1,5 +1,5 @@
 //
-// Created by david on 18/11/2019.
+// Created by Rory O'Connor on 18/11/2019.
 //
 #include "tok.h"
 #include "Infix2Postfix.h"
@@ -40,7 +40,7 @@ char * Tok(){
         while ((ch = fgetc(fp)) != EOF)
         {
 
-            char str = ch;
+            char * str = ch;
             char * ops = "";
 
 

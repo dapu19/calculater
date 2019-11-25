@@ -9,7 +9,7 @@
 #include "VM.h"
 #include "CG.h"
 
-int VM(char arr[120], int size);
+int VM(char arr[120][40], int size);
 
 void CG(char arr[120][40], int size){
     printf("generate \n");

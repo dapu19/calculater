@@ -2,6 +2,8 @@
 #include "VM.h"
 #include "CG.h"
 #include "Infix2Postfix.h"
+#include <windows.h>
+
 
 void CG(char arr[120][40], int size);
 int VM(char arr[120], int size);
@@ -10,16 +12,10 @@ char * Tok();
 
 
 int main() {
-    //printf("Hello, World!\n");
+
     char * result = Tok();
 
-
-
-
-
-    char Mattsum[][40] = { "5", "3457","+","6","2", "-", "*"};
-
-    //CG(Mattsum, 7);
+    //Sleep(2000000);
 
     return 0;
 }
